@@ -35,7 +35,11 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("cc.ekblad.konbini:konbini:0.1.3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
