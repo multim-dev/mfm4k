@@ -1,6 +1,7 @@
 sealed interface MfmNode{
-    val props: Any? //TODO あとでかえる
-    val children: Array<MfmNode>?
+    val props: Any?  //TODO あとでかえる
+        get() = null
+    val children: List<MfmNode>?
 }
 
 sealed interface MfmSimpleNode
@@ -26,7 +27,28 @@ interface MfmPlain : MfmInline
 
 interface MfmText : MfmSimpleNode,MfmInline
 
+val TEXT:(String)->MfmText = {
+    object : MfmText {
+        override val children: List<MfmNode>
+            get() = listOf()
+
+        override val props: Any
+            get() = it
+    }
+}
+
 interface MfmQuote : MfmBlock
+
+val QUOTE:(List<MfmNode>)->MfmQuote = {
+    object : MfmQuote {
+        override val props: Any?
+            get() = null
+        override val children: List<MfmNode>
+            get() = it
+
+    }
+}
+
 interface MfmSearch : MfmBlock
 interface MfmCodeBlock : MfmBlock
 interface MfmMathBlock : MfmBlock
