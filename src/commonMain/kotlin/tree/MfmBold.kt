@@ -1,3 +1,3 @@
 package tree
 
-data class MfmBold(val text:String): MfmNode()
+data class MfmBold(override val children: List<MfmNode> = listOf()): MfmNode(children)
